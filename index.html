@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <style>
+    .app{
+      background-color: rgb(255, 174, 127);
+      width: 50px;
+      height: 50px;
+    }
+  </style>
+
+  <body>
+    <div id="app"></div>
+   
+    <table>
+      <head>
+        <tr>
+          <th>id</th>
+          <th>prodi</th>
+          <th>jenjang</th>
+        </tr>
+      </head>
+      <tbody id="data"></tbody>
+    </table>
+
+    <button id="toggle">Clik</button>
+    <script type="module">
+      async function loadprodi(){
+        try{
+          const respon = await fetch('https://api.unira.ac.id/v1/prodi');
+          const data = await respon.json();
+          let html ='';
+          data.data.forEach(v =>{
+            html +=`<tr>
+              <td> ${v.id}</td>
+              <td> ${v.attributes.nama}</td>
+              <td> ${v.attributes.jenjang}</td>
+            </tr>`;
+          });
+          document.querySelector('#data').innerHTML= html;
+        }catch(err){
+          console.log(err);
+        }
+      }loadprodi();
+    </script>
+
+    <!-- <script>
+      document.querySelector('#toggle').addEventListener('click',() =>{
+        const app = document.querySelector('#app');
+        app.classList.toggle('app');
+      });
+
+
+      const app = document.querySelector('#app');
+      app.innerHTML = 'Hello Sayang';
+      app.style.color = 'red';
+      // app.classList.add('app');
+
+      const h1 = document.createElement('h1');
+      let text = document.createTextNode('Hello Word');
+      h1.appendChild(text);
+
+      const p = document.createElement('p');
+      text=  document.createTextNode('my name is');
+      p.appendChild(text);
+
+      const strong= document.createElement('strong');
+      text=document.createTextNode('ulfatul hasanah');
+      strong.appendChild(text);
+
+      p.appendChild(strong);
+      app.appendChild(h1);
+      app.appendChild(p);
+      
+    </script> -->
+  </body>
+</html>
